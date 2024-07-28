@@ -66,3 +66,29 @@ merchantRouter.post('/signin',async(req,res)=>{
         token
     })
 })
+
+
+merchantRouter.post('/getbalance',async(req,res)=>{
+    //@ts-ignore
+    const userid=req.id
+
+    const merchant_account=await db.merchantAccount.findFirst({
+        where:{
+            merchantid:userid
+        }
+    })
+
+    const wallet_balance=merchant_account?.balance 
+
+    if(!merchant_account){
+        return res.status(404).json({
+            "message":"unble to fetch account details"
+        })
+    }
+
+    return res.status(200).json({
+        "message":`wallet balance : ${wallet_balance}`
+    })
+    
+    
+})
