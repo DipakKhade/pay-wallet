@@ -68,7 +68,7 @@ userRouter.post('/signin',async(req,res)=>{
 
 
 userRouter.post('/onramp',authMiddleware,async(req,res)=>{
-    //add amount to wallet
+    //add amount to wallet  , this will hit by a bank/rezorpay
     const {amount}=req.body
     //@ts-ignore
     const id =req.id
@@ -106,11 +106,9 @@ userRouter.post('/transfer',authMiddleware,async(req,res)=>{
     
     const paymentDone=await db.$transaction(async tx=>{
         //locking the row
-        console.log(userid)
         await tx.$queryRaw`SELECT * FROM "UserAccount" WHERE "userid"=${userid} FOR UPDATE`
 
         try{
-
             //check user balance > amount user trying to send
             const user_account=await tx.userAccount.findFirst({
                 where:{
@@ -152,11 +150,8 @@ userRouter.post('/transfer',authMiddleware,async(req,res)=>{
     {
         maxWait: 5000, // default: 2000
         timeout: 10000, // default: 5000
-        // isolationLevel: db.TransactionIsolationLevel.Serializable, // optional, default defined by database configuration
       }
 )
-    
-console.log(paymentDone)
     if(paymentDone){
         return res.status(200).json({
             "message":`payment done : RS ${amount}`
@@ -169,3 +164,24 @@ console.log(paymentDone)
 
    
 })
+
+
+userRouter.post('/getbalance',async(req,res)=>{
+    //@ts-ignore
+    const userid=req.id
+    const user_account=await db.userAccount.findFirst({
+        where:{
+            userid
+        }
+    })
+    if(!user_account){
+        return res.status(404).json({
+            "message":"unable to fetch account details"
+        })
+    }
+    const wallet_balance=user_account?.balance || 0
+    return res.status(200).json({
+        "message":`wallet balance : ${wallet_balance}`
+    })
+})
+
