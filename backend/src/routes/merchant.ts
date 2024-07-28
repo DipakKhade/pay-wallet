@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 export const merchantRouter=Router()
 
-merchantRouter.get('/signup',async(req,res)=>{
+merchantRouter.post('/signup',async(req,res)=>{
     const {merchantname,email,password}=req.body
 
     try{
@@ -42,7 +42,7 @@ merchantRouter.get('/signup',async(req,res)=>{
 })
 
 
-merchantRouter.get('/signin',async(req,res)=>{
+merchantRouter.post('/signin',async(req,res)=>{
     const {merchantname,password}=req.body
 
     const merchant=await db.merchant.findFirst({

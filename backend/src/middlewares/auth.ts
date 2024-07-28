@@ -7,15 +7,17 @@ export const authMiddleware=(req:Request,res:Response,next:NextFunction)=>{
     const token = req.headers['authorization']
 
     const verified=jwt.verify(token as string,JWT_USER_SEC)
-   
+   console.log(verified)
         if(verified){
             //@ts-ignore
             req.id=verified.id
             next()
+        }else{
+            return res.json({
+                "Message":"unauthorized user"
+               })
+            
         }
 
-   return res.json({
-    "Message":"unauthorized user"
-   })
-
+ 
 }
