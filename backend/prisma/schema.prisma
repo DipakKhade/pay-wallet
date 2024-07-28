@@ -19,7 +19,7 @@ model User{
 
 model Merchant{
   id String @id @default(uuid())
-  username String
+  merchantname String
   email String  @unique
   password String
   account merchantAccount?
