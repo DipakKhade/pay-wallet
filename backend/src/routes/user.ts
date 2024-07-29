@@ -1,14 +1,12 @@
 import { Router } from "express";
 import jwt from 'jsonwebtoken';
-import { db, JWT_USER_SEC } from "../config";
+import { db, JWT_USER_SEC, SALT_ROUNDS } from "../config";
 import { authMiddleware } from "../middlewares/auth";
-
 export const userRouter=Router();
 
 userRouter.post('/signup',async(req,res)=>{
-    const {username , email , password}=req.body
-    const token=jwt.sign({username,email,password},JWT_USER_SEC)
-
+    const {username , email , password}=req.body.data
+    console.log(username,email,password)
     try{
        const new_user= db.$transaction(async function(tx){
         const new_user=await tx.user.create({
@@ -27,6 +25,7 @@ userRouter.post('/signup',async(req,res)=>{
        })
 
       return res.json({
+        "success":true,
         "message":"signup successfully"
        })
       
@@ -34,6 +33,7 @@ userRouter.post('/signup',async(req,res)=>{
 
         console.log('error in signup',e)
       return  res.json({
+        "success":false,
             "message":"signup failed"
         })
     }    
@@ -41,7 +41,7 @@ userRouter.post('/signup',async(req,res)=>{
 
 
 userRouter.post('/signin',async(req,res)=>{
-    const {username ,password}=req.body
+    const {username ,password}=req.body.data
     console.log(username,password)
     const user=await db.user.findFirst({
         where:{
@@ -56,6 +56,7 @@ userRouter.post('/signin',async(req,res)=>{
         },JWT_USER_SEC)
 
        return res.json({
+            "success":true,
             token
         })
     }
@@ -87,10 +88,12 @@ userRouter.post('/onramp',authMiddleware,async(req,res)=>{
         })
         console.log(onramp)
         return res.status(200).json({
+            "success":true,
             "message":`onramp of RS ${amount} is done`
         })
     }catch(e){
         return res.status(400).json({
+            "success":false,
             "message":"onramp failed"
         })
     }

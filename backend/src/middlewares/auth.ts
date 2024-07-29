@@ -5,7 +5,11 @@ import { JWT_USER_SEC } from "../config";
 
 export const authMiddleware=(req:Request,res:Response,next:NextFunction)=>{
     const token = req.headers['authorization']
-
+    if(!token){
+        return res.json({
+            "Message":"unauthorized user"
+           })
+    }
     const verified=jwt.verify(token as string,JWT_USER_SEC)
    console.log(verified)
         if(verified){
@@ -14,6 +18,7 @@ export const authMiddleware=(req:Request,res:Response,next:NextFunction)=>{
             next()
         }else{
             return res.json({
+                "success":false,
                 "Message":"unauthorized user"
                })
             
