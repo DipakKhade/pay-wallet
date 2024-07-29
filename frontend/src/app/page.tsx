@@ -1,9 +1,10 @@
-import Card from "./custrom_components/Card";
-
+import Dashboard from "./custrom_components/Dashboard";
+import SideBar from "./custrom_components/SideBar";
 export default function Home() {
   return (
-   <main>
-
+   <main className="flex">
+<SideBar/>
+<Dashboard/>
    </main>
   );
 }

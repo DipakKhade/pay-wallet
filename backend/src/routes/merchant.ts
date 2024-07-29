@@ -12,7 +12,7 @@ merchantRouter.post('/signup',async(req,res)=>{
         db.$transaction(async tx=>{
             const new_merchant=await tx.merchant.create({
                 data:{
-                    username:merchantname,
+                    merchantname,
                     email,
                     password
                 }
@@ -47,7 +47,7 @@ merchantRouter.post('/signin',async(req,res)=>{
 
     const merchant=await db.merchant.findFirst({
         where:{
-            username:merchantname,
+            merchantname,
             password:password
         }
     })
