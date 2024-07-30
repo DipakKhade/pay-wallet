@@ -11,7 +11,6 @@ import Image from "next/image";
 import sideimage from '../../lib/images/Untitled design.png'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 type Inputs = {
   username: string
   email: string
@@ -27,18 +26,17 @@ export default function Signup() {
     formState: { errors },
   } = useForm<Inputs>()
 const router=useRouter();
-const {toast}=useToast()
   const onSubmit: SubmitHandler<Inputs> = async(data) => {
    const res=await axios.post(`${BACKEND_URL}/api/v1/user/signup`,{
     data
    })
-   console.log(res)
    if(res.data.success){
-    toast({
-      title: "Sign up success",
-      description: "sign in to continoue",
+    toast.success('signup successful',{
+      description:'sign in to continoue'
     })
      router.push('/signin')
+   }else{
+    toast.error('not able to signin. try again')
    }
   }
 

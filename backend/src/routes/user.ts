@@ -183,9 +183,9 @@ userRouter.post('/getbalance',async(req,res)=>{
             "message":"unable to fetch account details"
         })
     }
-    const wallet_balance=user_account?.balance || 0
+    const account = user_account
     return res.status(200).json({
-        "message":`wallet balance : ${wallet_balance}`
+        account
     })
 })
 

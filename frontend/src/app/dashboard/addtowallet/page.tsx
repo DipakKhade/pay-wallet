@@ -17,6 +17,9 @@ import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
 import { useCookies } from "next-client-cookies";
 import { useForm , SubmitHandler } from "react-hook-form";
+import {toast} from 'sonner';
+import AccountDetails from "@/app/custrom_components/AccountDetails";
+
 enum Bank{
     hdfc,
     axis,
@@ -39,6 +42,11 @@ export default function Page() {
           },
         })
         console.log(res)
+        if(res.data.success){
+          toast.success(res.data.message)
+        }else{
+          toast('failed to add amount')
+        }
     } 
   return (
     <>
@@ -71,6 +79,7 @@ export default function Page() {
             </form>
           </Card>
         </div>
+        <AccountDetails/>
       </main>
     </>
   );

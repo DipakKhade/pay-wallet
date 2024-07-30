@@ -7,7 +7,7 @@ import { useCookies } from 'next-client-cookies';
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { Toaster, toast } from 'sonner'
 
 type Inputs = {
   username: string
@@ -22,25 +22,21 @@ export default function Signin(){
     formState: { errors },
   } = useForm<Inputs>()
   const cookies = useCookies();
-  const { toast } = useToast()
   const router = useRouter();
   const onSubmit: SubmitHandler<Inputs> = async(data) => {
+    
    const res=await axios.post(`${BACKEND_URL}/api/v1/user/signin`,{
     data
    })
-   console.log(res)
    if(res.data.success){
     cookies.set('authorization',res.data.token)
-    toast({
-     title: "Scheduled: Catch up",
-     description: "Friday, February 10, 2023 at 5:57 PM",
-   })
+    toast.success('sign in successful')
    router.push('/')
+   }else{
+    toast.error('try again')
    }
    
   }
-
-  const [email, setemail] = useState<string>('')
 
     return <>
     <div className="flex flex-wrap">
