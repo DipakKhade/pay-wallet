@@ -1,10 +1,10 @@
-import Dashboard from "./custrom_components/Dashboard";
-import SideBar from "./custrom_components/SideBar";
+import { redirect } from "next/navigation";
+
 export default function Home() {
+  redirect('/dashboard')
   return (
-   <main className="flex">
-<SideBar/>
-<Dashboard/>
-   </main>
+    <>
+    loading ....
+    </>
   );
 }

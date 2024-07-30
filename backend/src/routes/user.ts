@@ -69,29 +69,30 @@ userRouter.post('/signin',async(req,res)=>{
 
 
 userRouter.post('/onramp',authMiddleware,async(req,res)=>{
-    //add amount to wallet  , this will hit by a bank/rezorpay
-    const {amount}=req.body
+    //add amount to wallet  , this will hiat by a bank/rezorpay
+    const {amount}=req.body.data
     //@ts-ignore
     const id =req.id
     console.log(amount,id)
     try{
-
+        console.log('control is in try')
        const onramp= await db.userAccount.update({
             where:{
                 userid:id
             },
             data:{
                 balance:{
-                    increment:amount
+                    increment:Number(amount)
                 }
             }
         })
-        console.log(onramp)
+        console.log('onramp',onramp)
         return res.status(200).json({
             "success":true,
             "message":`onramp of RS ${amount} is done`
         })
     }catch(e){
+        console.log('control is in catch')
         return res.status(400).json({
             "success":false,
             "message":"onramp failed"

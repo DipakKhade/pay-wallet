@@ -6,6 +6,7 @@ import { useForm , SubmitHandler } from "react-hook-form";
 import { useCookies } from 'next-client-cookies';
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 
 type Inputs = {
@@ -38,10 +39,12 @@ export default function Signin(){
    }
    
   }
+
+  const [email, setemail] = useState<string>('')
+
     return <>
     <div className="flex flex-wrap">
   <div className="flex w-full flex-col md:w-1/2">
-   
     <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
       <p className="text-left text-3xl font-bold">Welcome to Pay-Wallet</p>
       <p className="mt-2 text-left text-gray-500">please enter your details.</p>
