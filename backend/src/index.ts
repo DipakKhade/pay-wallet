@@ -1,4 +1,4 @@
-import express ,{Express, json}from 'express';
+import express ,{Express,Request,Response,NextFunction}from 'express';
 import { PORT } from './config';
 import { userRouter } from './routes/user';
 import { authMiddleware } from './middlewares/auth';
@@ -20,6 +20,10 @@ app.use('/api/v1',sessionRouter)
 
 
 
+app.use((err:ErrorEvent,req:Request,res:Response,next:NextFunction)=>{
+    console.log(err)
+    res.status(500).send('sommething went wrong')
+})
 
 
 app.listen(PORT,()=>console.log(`server is up at ${PORT}`));
