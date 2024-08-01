@@ -26,6 +26,7 @@ export function GeneralSettings(){
     })
     return <>
     <div> 
+        <div>
         <p>General setting</p>
         <label htmlFor="name">username</label>
         <Input id="name" placeholder={username}/>
@@ -34,6 +35,7 @@ export function GeneralSettings(){
         <label htmlFor="account-no">user id</label>
         <Input disabled id="user-id" placeholder={userid} />
         <Button>save changes</Button>
+        </div>
     </div>
     </>
 }
