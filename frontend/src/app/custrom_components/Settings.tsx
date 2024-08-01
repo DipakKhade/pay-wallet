@@ -1,4 +1,5 @@
 'use client';
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { BACKEND_URL } from "@/lib/config";
 import axios from "axios";
@@ -24,14 +25,15 @@ export function GeneralSettings(){
         })();
     })
     return <>
-    <div>
-        
+    <div> 
+        <p>General setting</p>
         <label htmlFor="name">username</label>
-        <Input id="name" placeholder="Username" value={username}/>
+        <Input id="name" placeholder={username}/>
         <label htmlFor="email">email</label>
-        <Input id="email" placeholder="email" value={email}/>
+        <Input id="email" placeholder={email} />
         <label htmlFor="account-no">user id</label>
-        <Input id="user-id" placeholder="user id" value={userid}/>
+        <Input disabled id="user-id" placeholder={userid} />
+        <Button>save changes</Button>
     </div>
     </>
 }
