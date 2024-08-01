@@ -8,7 +8,7 @@ userRouter.post('/signup',async(req,res)=>{
     const {username , email , password}=req.body.data
     console.log(username,email,password)
     try{
-       const new_user= db.$transaction(async function(tx){
+       const new_user=await db.$transaction(async function(tx){
         const new_user=await tx.user.create({
             data:{
                 username, 
@@ -23,7 +23,7 @@ userRouter.post('/signup',async(req,res)=>{
             }
         })
        })
-
+console.log(new_user)
       return res.json({
         "success":true,
         "message":"signup successfully"
@@ -31,7 +31,7 @@ userRouter.post('/signup',async(req,res)=>{
       
     }catch(e){
 
-        console.log('error in signup',e)
+    console.log('error in signup',e)
       return  res.json({
         "success":false,
             "message":"signup failed"
@@ -61,7 +61,8 @@ userRouter.post('/signin',async(req,res)=>{
         })
     }
 
-   return res.status(401).json({
+   return res.json({
+        "success":false,
         "message":"user not found"
     })
 
@@ -170,16 +171,18 @@ userRouter.post('/transfer',authMiddleware,async(req,res)=>{
 })
 
 
-userRouter.post('/getbalance',async(req,res)=>{
+userRouter.post('/getbalance',authMiddleware,async(req,res)=>{
     //@ts-ignore
     const userid=req.id
+    console.log(userid)
     const user_account=await db.userAccount.findFirst({
         where:{
             userid
         }
     })
+    console.log(userid,user_account)
     if(!user_account){
-        return res.status(404).json({
+        return res.json({
             "message":"unable to fetch account details"
         })
     }
@@ -189,3 +192,24 @@ userRouter.post('/getbalance',async(req,res)=>{
     })
 })
 
+userRouter.post('/userdetails',async(req,res)=>{
+    //@ts-ignore
+    const userId=req.id
+    try{
+
+        const user = await db.user.findFirst({
+            where:{
+                id:userId
+            }
+        })
+        return res.json({
+            "success":true,
+            "email":user?.email,
+            "username":user?.username,
+            "user_id":user?.id
+        })
+    }catch(e){
+
+    }
+
+})

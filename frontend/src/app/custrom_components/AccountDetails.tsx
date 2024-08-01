@@ -38,7 +38,7 @@ export default function AccountDetails(){
         </>
     }
     return <>
-    <Card className="h-[300px] p-3 mt-4 w-[600px]">
+    <Card className="h-[300px] p-3 mt-4 w-[450px]">
         <p className="font-semibold text-xl">Wallet details</p>
         <div className="space-y-4 flex justify-between">
            <div>Account no :</div> {accountno}
