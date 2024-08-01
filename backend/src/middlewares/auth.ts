@@ -9,14 +9,12 @@ export const authMiddleware = (
 ) => {
   console.log(req.body)
   const token = req.headers["authorization"];
-  console.log('token',token)
   if (!token) {
     return res.json({
       Message: "unauthorized user",
     });
   }
   const verified = jwt.verify(token as string, JWT_USER_SEC);
-  console.log('varified',verified);
   if (verified) {
     //@ts-ignore
     req.id = verified.id;
