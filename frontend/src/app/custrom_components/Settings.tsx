@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { useForm , SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { useCookies } from "next-client-cookies";
+
 
 
 export function GeneralSettings() {
@@ -21,7 +23,6 @@ export function GeneralSettings() {
         setusername(res.data.username);
         setemail(res.data.email);
         setuserid(res.data.user_id);
-        console.log(res);
       } catch (e) {
         console.log(e);
       }
@@ -58,14 +59,16 @@ interface chnagePass{
 export function AccountSettings() {
     
   const {register,handleSubmit}=useForm();
-
+  const cookies =useCookies();
   const onsubmit=async(data:any)=>{
-    console.log(data)
     try{
         let res = await axios.post(`${BACKEND_URL}/api/v1/user/changepassword`,{
             data
-        })
-        console.log(res)
+        },{
+            method: "POST",
+            headers: {
+              authorization: cookies.get('authorization'),
+            }})
         if(res.data.success){
             toast(res.data['message'])
         }
@@ -85,13 +88,13 @@ export function AccountSettings() {
         <div className="p-4">
           <form className="space-y-2" onSubmit={handleSubmit(onsubmit)}>
             <div>
-              <Input {...register("password")} placeholder="currnet password" />
+              <Input type="password" {...register("password")} placeholder="currnet password" />
             </div>
             <div>
-              <Input {...register("newPassword")} placeholder="new password" />
+              <Input type="password" {...register("newPassword")} placeholder="new password" />
             </div>
             <div>
-              <Input {...register("confirmnewPassword")} placeholder="confirm new password" />
+              <Input type="password" {...register("confirmnewPassword")} placeholder="confirm new password" />
             </div>
             <Button type="submit">save changes</Button>
           </form>
