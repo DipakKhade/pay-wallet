@@ -1,4 +1,3 @@
-import axios from "axios";
 import { BACKEND_URL } from "./lib/config";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
