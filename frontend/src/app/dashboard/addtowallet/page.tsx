@@ -35,13 +35,9 @@ export default function Page() {
     const {register , handleSubmit}=useForm<Inputs>()
     const [loading ,SetLoading] = useState<boolean>(false)
     const [refetch,SetRefetch] = useState<boolean>(false)
-
-    useEffect(()=>{
-     
-    },[refetch])
     
     async function onramp(data:any){
-      SetLoading(true)      
+      SetLoading(!refetch)      
       const res=await axios.post(`${BACKEND_URL}/api/v1/user/onramp`,{data},{
         method: "POST",
         headers: {
@@ -54,6 +50,7 @@ export default function Page() {
         SetLoading(false)
         toast.success(res.data.message)
       }else{
+        SetRefetch(true)
         SetLoading(false)
         toast('failed to add amount')
       }
@@ -63,6 +60,7 @@ export default function Page() {
     <>
       <main className="flex">
         <SideMenu>
+          <div className="flex">
         <div className="justify-center p-4">
           <Card className="w-96 h-[300px] space-y-3 p-3">
             <p>Add to Wallet</p>
@@ -101,7 +99,8 @@ export default function Page() {
             </form>
           </Card>
         </div>
-        <AccountDetails/>
+        <AccountDetails update={refetch}/>
+        </div>
         </SideMenu>
       </main>
     </>
