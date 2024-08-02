@@ -28,16 +28,20 @@ export default function Signin() {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     SetLoading(true);
-    const res = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
-      data,
-    });
-    if (res.data.success) {
-      SetLoading(false);
-      cookies.set("authorization", res.data.token);
-      toast.success("sign in successful");
-      router.push("/dashboard");
-    } else if (!res.data.success) {
-      SetLoading(false);
+    try{
+      const res = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
+        data,
+      });
+      if (res.data.success) {
+        SetLoading(false);
+        cookies.set("authorization", res.data.token);
+        toast.success("sign in successful");
+        router.push("/dashboard");
+      } else if (!res.data.success) {
+        SetLoading(false);
+        toast.error("try again");
+      }
+    }catch(e){
       toast.error("try again");
     }
   };

@@ -111,7 +111,9 @@ export function SideMenu({children}:{children:ReactNode}) {
           </div>
         </SidebarBody>
       </Sidebar>
+      <div className="pl-32">
       {children}
+      </div>
     </div>
   );
 }
@@ -127,7 +129,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        Menu
       </motion.span>
     </Link>
   );

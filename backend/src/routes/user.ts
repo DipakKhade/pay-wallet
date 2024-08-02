@@ -213,3 +213,56 @@ userRouter.post('/userdetails',async(req,res)=>{
     }
 
 })
+
+
+userRouter.post('/changepassword',async(req,res)=>{
+    //@ts-ignore
+    const userId = req.id
+    const { password , newPassword , confirmnewPassword } = req.body.data
+    console.log({ password , newPassword , confirmnewPassword })
+    if(newPassword !== confirmnewPassword){
+        return res.json({
+            "success":false,
+            "message":"password confirmation failed"
+        })
+    }
+    const user=await db.user.findFirst({
+        where:{
+            id:userId
+        }
+    })
+console.log(user,user?.password)
+    if(user && user.password===password){
+        try{
+
+            const changePass= await db.user.update({
+                where:{
+                    id:userId
+            },
+            data:{
+                password:newPassword
+            }
+        })
+
+        if(changePass){
+            return res.json({
+                "success":true,
+                "message":"password changes successfully"
+            })
+        }
+        
+    }catch(e){
+        return res.json({
+            "success":false
+        })
+    }
+
+    }
+
+    return res.json({
+        "success":false,
+        "message":"password updation failed"
+    })
+
+    
+})
