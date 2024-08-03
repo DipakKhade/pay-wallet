@@ -17,8 +17,8 @@ import { BACKEND_URL } from "@/lib/config";
 import { useCookies } from "next-client-cookies";
 import { useForm , SubmitHandler } from "react-hook-form";
 import {toast} from 'sonner';
-import AccountDetails from "@/app/custrom_components/AccountDetails";
-import {SideMenu} from "../../custrom_components/SideMenu"
+import AccountDetails from "../../../../custrom_components/AccountDetails";
+import {SideMenu} from "../../../../custrom_components/SideMenu"
 
 enum Bank{
     hdfc,

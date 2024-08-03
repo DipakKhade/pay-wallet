@@ -1,4 +1,4 @@
-import SideBar from "../custrom_components/SideBar"
+import SideBar from "../../../custrom_components/SideBar"
 
 export default function page(){
     return<>

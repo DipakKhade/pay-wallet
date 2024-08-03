@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./custrom_components/Header";
-import { Toaster } from 'sonner'
-import { ThemeProvider } from "./custrom_components/theme-provider";
-
+import Header from "../../custrom_components/Header";
+import { Toaster } from "sonner";
+import Providers from "./Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,19 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     
-      <body className={inter.className}>
-      <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-      <Header/>
-       <main>{children}</main>
-       <Toaster richColors/>
-       </ThemeProvider>
+      <Providers>
+        <body className={inter.className}>
+          <Header />
+          {children}
+          <Toaster richColors />
         </body>
+      </Providers>
     </html>
   );
 }

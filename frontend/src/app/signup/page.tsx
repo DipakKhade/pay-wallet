@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Card from "../custrom_components/Card";
+import Card from "../../../custrom_components/Card";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { BACKEND_URL } from "../../lib/config";

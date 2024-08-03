@@ -11,7 +11,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import img from "../../lib/images/Untitled design.png"
+import img from "../src/lib/images/Untitled design.png"
 import { TbTransfer } from "react-icons/tb";
 import { TbTransactionDollar } from "react-icons/tb";
 import { MdAccountBalanceWallet } from "react-icons/md";
@@ -78,7 +78,7 @@ export function SideMenu({children}:{children:ReactNode}) {
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 max-w-7xl mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
+        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
         "h-[700px]"
       )}
     >

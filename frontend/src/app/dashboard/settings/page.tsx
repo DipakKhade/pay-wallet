@@ -1,6 +1,6 @@
 'use client';
-import { SideMenu } from "@/app/custrom_components/SideMenu";
-import { AccountSettings, GeneralSettings } from "@/app/custrom_components/Settings";
+import { SideMenu } from "../../../../custrom_components/SideMenu";
+import { AccountSettings, GeneralSettings } from "../../../../custrom_components/Settings";
 import { useState } from "react";
 
 enum Tab{

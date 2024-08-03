@@ -1,4 +1,4 @@
-import { SideMenu } from "@/app/custrom_components/SideMenu";
+import { SideMenu } from "../../../../custrom_components/SideMenu";
 
 export default function Page(){
     return <>

@@ -1,0 +1,44 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id String @id @default(uuid())
+  username String 
+  email String @unique
+  password String?
+  profilePicture String?
+  account UserAccount?
+}
+
+model Merchant{
+  id String @id @default(uuid())
+  merchantname String
+  email String  @unique
+  password String
+  profilePicture String?
+  account merchantAccount?
+}
+
+model UserAccount{
+  id String @id @default(uuid())
+  balance Int @default(0)
+  locked Int @default(0)
+  userid String @unique
+  user User @relation(fields: [userid],references: [id])
+}
+
+model merchantAccount{
+  id String @id @default(uuid())
+  balance Int @default(0)
+  locked Int  @default(0)
+  merchantid String  @unique
+  merchant Merchant @relation(fields: [merchantid],references: [id])
+}
